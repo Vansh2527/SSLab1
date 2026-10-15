@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Signal System Lab</title>
+<style>
+:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:#1f2937;font:15px/1.5 "Segoe UI",system-ui,Roboto,sans-serif}
+main{max-width:1040px;margin:0 auto;padding:20px 16px 40px}
+h1{margin:0;font-size:28px;letter-spacing:-.02em}
+.sub{margin:2px 0 18px;color:#6b7280;max-width:62ch}
+h2{font-size:13px;margin:22px 0 8px;color:#6b7280;font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{border:1px solid #d1d5db;background:#fff;border-radius:18px;padding:6px 14px;font:inherit;font-size:13.5px;cursor:pointer;color:#111827}
+.chips button:hover{border-color:#111827}
+.two{display:grid;gap:14px;grid-template-columns:1fr}
+@media(min-width:820px){.two{grid-template-columns:1fr 1fr}}
+.card{border:1px solid #e5e7eb;border-radius:10px;padding:14px}
+.card.a{border-top:4px solid #2563eb}.card.b{border-top:4px solid #d97706}.card.r{border-top:4px solid #059669}
+.card h3{margin:0 0 10px;font-size:16px}
+.ctl{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px 14px;margin-bottom:10px}
+label{display:block;font-size:12.5px;color:#6b7280}label b{color:#111827}
+select{width:100%;margin-top:4px;padding:8px;border:1px solid #d1d5db;border-radius:6px;background:#fff;color:#111827;font:inherit}
+input[type=range]{width:100%;margin:6px 0 0;accent-color:#111827}
+details{grid-column:1/-1;border-top:1px dashed #e5e7eb;padding-top:6px}
+summary{cursor:pointer;font-size:13px;color:#374151}
+details .ctl{margin:8px 0 0}
+.chk{display:flex;gap:8px;align-items:center;align-self:end;padding-bottom:4px}
+button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid #2563eb;outline-offset:2px}
+canvas{display:block;width:100%;background:#fff;border:1px solid #eef0f3;border-radius:6px;touch-action:pan-y}
+.ro{font-size:12px;color:#6b7280;margin-top:6px;min-height:18px}
+.seg{display:flex;flex-wrap:wrap;border:1px solid #111827;border-radius:8px;overflow:hidden;width:fit-content;max-width:100%}
+.seg button{border:0;background:#fff;padding:9px 16px;font:inherit;cursor:pointer;color:#111827;border-right:1px solid #e5e7eb}
+.seg button:last-child{border-right:0}
+.seg button.on{background:#111827;color:#fff}
+.eq{margin:10px 0 12px;font-size:17px;font-weight:600}
+.row{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-bottom:10px;font-size:13.5px}
+.row select{width:auto;margin:0 0 0 6px;padding:5px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:10px}
+.stat{background:#f9fafb;border-radius:8px;padding:8px 12px}.stat span{display:block;font-size:12px;color:#6b7280}.stat b{font-size:18px}
+.hero{background:#f8fafc;border-bottom:1px solid #e5e7eb;padding:26px 16px}
+.hero div{max-width:1040px;margin:0 auto}
+.hero p{margin:4px 0 0;color:#4b5563;font-size:16px}
+.intro p{margin:0 0 10px;max-width:70ch}
+.intro ul{margin:6px 0 14px;padding-left:20px;max-width:70ch}
+.intro li{margin-bottom:4px}
+.steps{display:grid;gap:10px;grid-template-columns:1fr}
+@media(min-width:820px){.steps{grid-template-columns:repeat(3,1fr)}}
+.step{background:#f9fafb;border-radius:8px;padding:10px 14px;font-size:14px}.step b{display:block;margin-bottom:2px}
+.team{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.member{border:1px solid #e5e7eb;border-radius:10px;padding:12px 14px}.member b{display:block;font-size:16px}.member span{color:#6b7280;font-size:13px}
+footer{margin-top:28px;padding-top:14px;border-top:1px solid #e5e7eb;color:#6b7280;font-size:12.5px}
+</style></head><body>
+<header class="hero"><div><h1>Signal System Lab</h1><p>A virtual laboratory for Signals and Systems</p></div></header>
+<main>
+<div class="card intro" style="margin-top:18px"><h3>Introduction</h3>
+<p>Signals are the language of electronics, communication and biomedical systems. A heartbeat, a radio wave and a sensor reading are all signals. Signal Bench lets you create two continuous-time signals, combine them with standard operations, and watch the result update instantly, so the theory from class appears on the graph.</p>
+<b style="font-size:14px">Objectives</b>
+<ul><li>Visualize basic and real-world signals, and see how amplitude, frequency and phase shape them.</li><li>Apply time shifting, time scaling and time reversal to a signal.</li><li>Perform addition, subtraction, multiplication, convolution and cross-correlation on two signals.</li><li>Measure the energy, power, RMS value and mean of a signal.</li></ul>
+<b style="font-size:14px">How to use</b>
+<div class="steps" style="margin-top:6px"><div class="step"><b>1. Set the signals</b>Start from a quick experiment, or choose the type and parameters of Signal A and Signal B.</div><div class="step"><b>2. Choose an operation</b>Select add, subtract, multiply, convolve or correlate.</div><div class="step"><b>3. Read the result</b>Study the result graph and the measurements below it. Touch or hover on any graph for exact values.</div></div></div>
+<h2>Quick experiments</h2><div class="chips" id="pre"></div>
+<h2>Your signals</h2>
+<div class="two"><div class="card a" id="cA"></div><div class="card b" id="cB"></div></div>
+<h2>Operation</h2>
+<div class="seg" id="seg"></div>
+<div class="card r" style="margin-top:14px">
+<div class="eq" id="eq"></div>
+<div class="row"><label style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="showin" checked> Show inputs behind result</label>
+<label>Measure<select id="meas"><option value="r">Result</option><option value="a">Signal A</option><option value="b">Signal B</option></select></label></div>
+<canvas id="gR" style="height:300px"></canvas><div class="ro">Hover or touch the graph to read exact values.</div>
+<div class="stats" id="st"></div></div>
+<h2>Project team</h2>
+<div class="team"><div class="member"><b>Vansh Gosavi</b><span>PRN No. 126B2E041</span></div><div class="member"><b>Harshvardhan Shendge</b><span>PRN No. 126B2E039</span></div><div class="member"><b>Akshay Shinde</b><span>PRN No. 126B2E037</span></div></div>
+<footer>All signals are computed from −5 s to 5 s using 1024 samples. Energy and power are measured over this window.</footer>
+</main>
+<script>
+const $=s=>document.querySelector(s);
+const N=1024,T0=-5,T1=5,dt=(T1-T0)/N,ts=Array.from({length:N},(_,i)=>T0+i*dt);
+const BASIC={sine:'Sinusoidal',cosine:'Cosine',square:'Square',triangle:'Triangular',sawtooth:'Sawtooth',ramp:'Ramp',step:'Unit step',impulse:'Unit impulse',expd:'Exponential decay',expg:'Exponential growth',rect:'Rectangular pulse',sinc:'Sinc',gauss:'Gaussian'};
+const REAL={ecg:'ECG heartbeat',noisy:'Noisy sine',am:'AM signal',damped:'Damped oscillation'};
+const CA='#2563eb',CB='#d97706',CR='#059669';
+const gs=(u,c,w)=>Math.exp(-0.5*Math.pow((u-c)/w,2));
+const nzf=t=>{const v=Math.sin(t*127.1+311.7)*43758.5453;return(v-Math.floor(v)-.5)*.6};
+function base(ty,t,f,ph){const x=2*Math.PI*f*t+ph*Math.PI/180;switch(ty){
+case'sine':return Math.sin(x);case'cosine':return Math.cos(x);
+case'square':return Math.sin(x)>=0?1:-1;
+case'triangle':return 2/Math.PI*Math.asin(Math.sin(x));
+case'sawtooth':{const u=(x/(2*Math.PI))%1;return 2*((u+1)%1)-1}
+case'ramp':return t>=0?t:0;case'step':return t>=0?1:0;
+case'expd':return t>=0?Math.exp(-f*t):0;case'expg':return t>=0?Math.exp(.2*f*t):0;
+case'rect':return Math.abs(t)<=.5/f?1:0;
+case'sinc':return t==0?1:Math.sin(Math.PI*f*t)/(Math.PI*f*t);
+case'gauss':return Math.exp(-Math.pow(f*t,2));
+case'ecg':{const u=(((f*t+ph/360)%1)+1)%1;return .15*gs(u,.18,.03)-.12*gs(u,.27,.012)+gs(u,.3,.014)-.2*gs(u,.33,.014)+.3*gs(u,.55,.05)}
+case'noisy':return Math.sin(x)+nzf(t);
+case'am':return(1+.5*Math.cos(2*Math.PI*f*t/5))*Math.sin(x);
+case'damped':return t>=0?Math.exp(-.5*t)*Math.sin(x):0}return 0}
+// y(t)=A·x(a·t − t0), optionally reversed. delta=true makes the impulse an area-1 spike (used inside convolution/correlation)
+function gen(s,delta){return ts.map(t=>{const u=s.scale*(s.rev?-t:t)-s.shift;
+if(s.type=='impulse')return Math.abs(u)<dt*s.scale/2?s.A*(delta?1/dt:1):0;
+return s.A*base(s.type,u,s.f,s.ph)})}
+const nice=v=>{const p=Math.pow(10,Math.floor(Math.log10(v)));return[1,2,5,10].map(m=>m*p).find(m=>m>=v*1.05)};
+function plot(id,ser,o={}){const cv=$('#'+id),dpr=devicePixelRatio||1,W=cv.clientWidth,H=cv.clientHeight;if(!W)return;
+cv.width=W*dpr;cv.height=H*dpr;const g=cv.getContext('2d');g.setTransform(dpr,0,0,dpr,0,0);
+let m=0;ser.forEach(s=>s.y.forEach(v=>{if(Math.abs(v)>m)m=Math.abs(v)}));
+const mx=nice(m||1),L=40,R=10,Tp=10,B=22,w=W-L-R,h=H-Tp-B;
+const X=t=>L+(t-T0)/(T1-T0)*w,Y=v=>Tp+h/2-v/mx*h/2;
+g.font='11px "Segoe UI",system-ui,sans-serif';g.lineWidth=1;g.fillStyle='#6b7280';
+for(let t=T0;t<=T1;t++){g.strokeStyle='#eceff3';g.beginPath();g.moveTo(X(t),Tp);g.lineTo(X(t),Tp+h);g.stroke();g.textAlign='center';g.fillText(t,X(t),H-6)}
+[-1,-.5,0,.5,1].forEach(k=>{const v=k*mx;g.strokeStyle='#eceff3';g.beginPath();g.moveTo(L,Y(v));g.lineTo(L+w,Y(v));g.stroke();g.textAlign='right';g.fillText(+v.toFixed(2),L-5,Y(v)+4)});
+g.strokeStyle='#374151';g.beginPath();g.moveTo(L,Y(0));g.lineTo(L+w,Y(0));g.moveTo(X(0),Tp);g.lineTo(X(0),Tp+h);g.stroke();
+ser.forEach(s=>{g.globalAlpha=s.a||1;g.strokeStyle=s.c;g.lineWidth=s.a?1.5:2.2;g.lineJoin='round';g.beginPath();s.y.forEach((v,i)=>{const px=X(ts[i]),py=Y(v);i?g.lineTo(px,py):g.moveTo(px,py)});g.stroke()});g.globalAlpha=1;
+const ro=cv.nextElementSibling;
+cv.onpointermove=e=>{const r=cv.getBoundingClientRect(),t=T0+(e.clientX-r.left-L)/w*(T1-T0);
+const i=Math.max(0,Math.min(N-1,Math.round((t-T0)/dt)));
+ro.textContent=`${o.u||'t'} = ${ts[i].toFixed(2)} s   |   `+ser.map(s=>s.n+' = '+s.y[i].toFixed(3)).join('   ')}}
+const SL=[['A','Amplitude',.1,3,.1,''],['f','Frequency / rate',.1,5,.1,' Hz'],['ph','Phase',0,360,5,'°']];
+const TF=[['shift','Time shift t₀',-3,3,.1,' s'],['scale','Time scale a',.25,3,.05,'×']];
+const rng=(s,[k,l,mn,mx,sp,u])=>`<label>${l}: <b>${s[k]}${u}</b><input type="range" data-k="${k}" data-u="${u}" min="${mn}" max="${mx}" step="${sp}" value="${s[k]}"></label>`;
+function ctrl(id,s,title){const opt=T=>Object.entries(T).map(([k,v])=>`<option value="${k}"${s.type==k?' selected':''}>${v}</option>`).join('');
+const b=$('#'+id);b.innerHTML=`<h3>${title}</h3><div class="ctl"><label>Signal type<select data-k="type"><optgroup label="Basic signals">${opt(BASIC)}</optgroup><optgroup label="Real-world signals">${opt(REAL)}</optgroup></select></label>${SL.map(x=>rng(s,x)).join('')}
+<details><summary>Time shift, scale and reversal</summary><div class="ctl">${TF.map(x=>rng(s,x)).join('')}<label class="chk"><input type="checkbox" data-k="rev"${s.rev?' checked':''}> Time reversal x(−t)</label></div></details></div>
+<canvas id="${id}g" style="height:170px"></canvas><div class="ro">Hover or touch to read values.</div>`;
+b.oninput=e=>{const t=e.target,k=t.dataset.k;if(!k)return;s[k]=t.type=='checkbox'?t.checked:t.tagName=='SELECT'?t.value:+t.value;
+if(t.type=='range')t.parentNode.querySelector('b').textContent=s[k]+t.dataset.u;draw()}}
+const mkS=(type,f,x={})=>Object.assign({type,A:1,f,ph:0,shift:0,scale:1,rev:false},x);
+const sA=mkS('sine',1),sB=mkS('sine',2);let op='add';
+const OPS={add:['Add','y(t) = A(t) + B(t)'],sub:['Subtract','y(t) = A(t) − B(t)'],mul:['Multiply','y(t) = A(t) · B(t)'],conv:['Convolve','y(t) = A(t) ∗ B(t)'],corr:['Correlate','r(τ) = ∫ A(t) · B(t + τ) dt, plotted against the lag τ']};
+const PRE=[['Beats',['sine',5],['sine',5.5],'add'],['Amplitude modulation',['sine',.5],['sine',5],'mul'],['Moving average',['noisy',1],['rect',2.5,{A:2.5}],'conv'],['Delay a signal',['ecg',1],['impulse',1,{shift:1}],'conv'],['Match a signal',['sine',1],['sine',1],'corr']];
+$('#pre').innerHTML=PRE.map((p,i)=>`<button data-p="${i}">${p[0]}</button>`).join('');
+$('#seg').innerHTML=Object.entries(OPS).map(([k,v])=>`<button data-op="${k}">${v[0]}</button>`).join('');
+function draw(){const d=op=='conv'||op=='corr',a=gen(sA),b=gen(sB),ad=d?gen(sA,1):a,bd=d?gen(sB,1):b;let y;
+if(op=='conv'){y=new Array(N).fill(0);for(let i=0;i<N;i++)if(ad[i])for(let j=Math.max(0,512-i);j<Math.min(N,N+512-i);j++)y[i+j-512]+=ad[i]*bd[j]*dt}
+else if(op=='corr'){y=new Array(N).fill(0);for(let i=0;i<N;i++)if(ad[i])for(let j=Math.max(0,i-512);j<Math.min(N,i+512);j++)y[j-i+512]+=ad[i]*bd[j]*dt}
+else y=a.map((v,i)=>op=='add'?v+b[i]:op=='sub'?v-b[i]:v*b[i]);
+document.querySelectorAll('#seg button').forEach(x=>x.classList.toggle('on',x.dataset.op==op));
+$('#eq').textContent=OPS[op][1];
+plot('cAg',[{y:a,c:CA,n:'A'}]);plot('cBg',[{y:b,c:CB,n:'B'}]);
+plot('gR',[...($('#showin').checked?[{y:a,c:CA,a:.4,n:'A'},{y:b,c:CB,a:.4,n:'B'}]:[]),{y,c:CR,n:'result'}],{u:op=='corr'?'τ':'t'});
+const z={r:y,a,b}[$('#meas').value];let e=0,m=0,pk=0;z.forEach(v=>{e+=v*v*dt;m+=v;pk=Math.max(pk,Math.abs(v))});
+const P=e/(T1-T0),f=v=>(+v.toPrecision(4)).toString();
+$('#st').innerHTML=[['Energy',f(e)+' J'],['Average power',f(P)+' W'],['RMS',f(Math.sqrt(P))],['Mean',f(m/N)],['Peak',f(pk)]].map(([l,v])=>`<div class="stat"><span>${l}</span><b>${v}</b></div>`).join('')}
+function build(){ctrl('cA',sA,'Signal A');ctrl('cB',sB,'Signal B');draw()}
+document.body.onclick=e=>{const p=e.target.closest('[data-p]'),o=e.target.closest('[data-op]');
+if(p){const q=PRE[+p.dataset.p];Object.assign(sA,mkS(...q[1]));Object.assign(sB,mkS(...q[2]));op=q[3];build()}
+if(o){op=o.dataset.op;draw()}};
+$('#showin').onchange=$('#meas').onchange=draw;
+addEventListener('resize',draw);build();
+</script></body></html>
